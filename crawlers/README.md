@@ -1,31 +1,52 @@
+
+
 # Desafio 2: Crawlers
 
-Parte do trabalho na IDwall inclui desenvolver *crawlers/scrapers* para coletar dados de websites.
-Como nós nos divertimos trabalhando, às vezes trabalhamos para nos divertir!
+##### Processo de resolução do desafio parte 01
 
-O Reddit é quase como um fórum com milhares de categorias diferentes. Com a sua conta, você pode navegar por assuntos técnicos, ver fotos de gatinhos, discutir questões de filosofia, aprender alguns life hacks e ficar por dentro das notícias do mundo todo!
+Decidi pelo uso do spring como framework por ser uma ferramente que uso no meu dia-a-dia e pelas facilidades oferecidas por ela como, por exemplo, controle de depencências, autoconfigução, etc. 
 
-Subreddits são como fóruns dentro do Reddit e as postagens são chamadas *threads*.
+Comecei o desenvolvimento pelo mapeamento da classe de dominio referente ao que deve ser exibido para o usuário.
 
-Para quem gosta de gatos, há o subreddit ["/r/cats"](https://www.reddit.com/r/cats) com threads contendo fotos de gatos fofinhos.
-Para *threads* sobre o Brasil, vale a pena visitar ["/r/brazil"](https://www.reddit.com/r/brazil) ou ainda ["/r/worldnews"](https://www.reddit.com/r/worldnews/).
-Um dos maiores subreddits é o "/r/AskReddit".
+Criei a classe `CrawlerConfig`, que ficou responsável pela configuração do selenium e do CLI utilizado na parte 01 do desafio. O CLI ele só será utilizado caso nenhuma outro CLI tenha sido configurado.
 
-Cada *thread* possui uma pontuação que, simplificando, aumenta com "up votes" (tipo um like) e é reduzida com "down votes".
+Após a criação dessa classe, criei a classe `SubredditContentReader`, que ficou responsável pela leitura dos posts de um dado subreddit, decidi utilizar um `consumer` e as facilidades que a lambda expression oferece para definir como os posts capturados e que obedecessem a um dado critério, no caso mais de 5mil upvotes, deveriam ser consumidos, ou seja, se ele seria impresso no console ou seria enviado de volta a um usuário do telegram, por exemplo.
 
-Sua missão é encontrar e listar as *threads* que estão bombando no Reddit naquele momento!
-Consideramos como bombando *threads* com 5000 pontos ou mais.
+ Na concepção da classe `SubredditContentReader`, decidi que o método read deveria lançar uma checked exception `EmptySubredditResponseException`, para os cenários onde não existisse nenhum conteúdo de um determinado subreddit ou até mesmo a subreddit em si.
+ 
+ Outra decisão tomada foi a criação de um `CrawlerMapper`, que ficou responsável por fazer o mapeamento dos elementos web retornados pelo selenium tirando essa responsabilidade do `SubredditContentReader`.
 
-## Entrada
-- Lista com nomes de subreddits separados por ponto-e-vírgula (`;`). Ex: "askreddit;worldnews;cats"
+##### Processo de resolução do desafio parte 02
+
+A parte 02 começou com um estudo relacionado ao funcionamento da API de criação de bots do [telegram](https://core.telegram.org/bots).
+
+Para a parte 02 foi criada uma classe de configuração específico para o bot do telegram (`TelegramBotCommandLineConfig`). Essa classe só será ativada quando for passado o API key do bot do telegram atráves da propriedade `org.telegram.bot.key`.
+
+Para a criação do bot foi usada a biblieteca `org.telegram.telegrambots`. Ela oferece uma classe abstrata `TelegramLongPollingBot` que usei para criar a classe concreta `RedditTelegramBot`, que ficou responsável por manipular os comandos enviados pelo bot via telegram. 
+
+## Execução
+
+#### Parte 01 e 02
+
+**Importante!** Para que as aplição funcione corretamente é necessário inicializar o selenium remote driver. Foi disponibilizado um arquivo docker-compose na pasta raiz do projeto crawlers. Para executa-lo é necessário usar o seguinte comando:
+
+`docker-compose up -d`
+
 
 ### Parte 1
-Gerar e imprimir uma lista contendo número de upvotes, subreddit, título da thread, link para os comentários da thread, link da thread.
-Essa parte pode ser um CLI simples, desde que a formatação da impressão fique legível.
+
+##### Para executar
+
+`mvn spring-boot:run -Dspring-boot.run.arguments="[subreddits separados por ponto-e-virugula (ex: cats;dogs)]"`
+
+Exemplo:
+
+`mvn spring-boot:run -Dspring-boot.run.arguments="cats;dogs"`
 
 ### Parte 2
-Construir um robô que nos envie essa lista via Telegram sempre que receber o comando `/NadaPraFazer [+ Lista de subrredits]` (ex.: `/NadaPraFazer programming;dogs;brazil`)
 
-### Dicas
- - Use https://old.reddit.com/
- - Qualquer método para coletar os dados é válido. Caso não saiba por onde começar, procure por JSoup (Java), SeleniumHQ (Java), PhantomJS (Javascript) e Beautiful Soup (Python).
+##### Para executar
+
+`mvn spring-boot:run  -Dorg.telegram.bot.key=[TELEGRAM BOT API KEY]`
+
+Em seguida interagir com o bot no telegram através do comando /nadaparafazer.
