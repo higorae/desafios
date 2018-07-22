@@ -2,6 +2,7 @@ package idwall.desafio;
 
 import idwall.desafio.string.IdwallFormatter;
 import idwall.desafio.string.StringFormatter;
+import idwall.desafio.string.align.JustifyAlignment;
 
 /**
  * Created by Rodrigo Catão Araujo on 06/02/2018.
@@ -42,6 +43,12 @@ public class Main {
 
         // Run IdwallFormatter
         final StringFormatter sf = new IdwallFormatter();
+        sf.setLimit(limit);
+        
+        if(justify) {
+        		sf.setTextAlignment(new JustifyAlignment());
+        }
+        
         String outputText = sf.format(text);
 
         // Print output text
