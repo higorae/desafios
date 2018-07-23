@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Justifica o texto adicionado espaços em branco entre as palavras até que chegue ao limite de caracteres por linha.
+ * 
+ * @author higor.azevedo
+ *
+ */
 public class JustifyAlignment implements TextAlignment {
 
 	@Override
