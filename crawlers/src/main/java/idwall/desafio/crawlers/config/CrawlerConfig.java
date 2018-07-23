@@ -19,7 +19,7 @@ public class CrawlerConfig {
 	
 	@Bean(destroyMethod="quit")
 	public WebDriver config(@Value("${selenium.remote.url}") String rmeoteUrl) throws MalformedURLException {
-		return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new ChromeOptions());
+		return new RemoteWebDriver(new URL(rmeoteUrl), new ChromeOptions());
 	}
 	
 	@Bean
