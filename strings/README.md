@@ -13,7 +13,10 @@ Para formatar o texto resolvi usar o padrão de projeto Strategy, onde foi defin
 ##### Para executar
 
 Deve-se primeiramente criar o JAR-file usando o comando abaixo:
+
 `mvn package`
 
 Em seguida deve-se executar o seguinte comando:
-`java -jar target/StringFormatter-1.0-SNAPSHOT.jar "[TEXTO PARA SER FORMATADO]" [NÚMERO CARACTERES POR LINHA] [true ou false Caso queira justificar ou não o texto]` 
+
+`java -jar target/StringFormatter-1.0-SNAPSHOT.jar "[TEXTO PARA SER FORMATADO]" [NÚMERO CARACTERES POR LINHA] [true ou false Caso queira justificar ou não o texto]`
+ 
