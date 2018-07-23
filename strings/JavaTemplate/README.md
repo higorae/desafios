@@ -4,9 +4,9 @@
 
 Foram criadas duas classes para representar o texto (Text) e as linhas que compõem esse texto (LineText).
 
-Inicialmente criei a classe IdwallFormatter, essa classe recebe um determinado texto e baseado no limite de caracteres por linha, ela retorna o texto em um determinado formato. A lógica usada no algoritmo foi a de "explodir" o texto num array de palavras e ir adicionando essas palavras até atingir o limite de caracteres naquela linha, caso a palavra a ser adicionada faça com que o total de caracteres na linha passe do seu limite, essa palavra é adicionada em uma nova linha e caso ainda existam palavras para serem adicionadas uma nova linha é criada.
+Inicialmente criei a classe IdwallFormatter. Essa classe recebe um determinado texto e, baseado no limite de caracteres por linha, ela retorna o texto em um determinado formato. A lógica usada no algoritmo foi a de "explodir" o texto em um array de palavras e ir adicionando essas palavras até atingir o limite de caracteres naquela linha. Caso a palavra a ser adicionada em seguida faça com que o total de caracteres na linha passe do seu limite, essa palavra é adicionada em uma nova linha e, se ainda existirem palavras, elas são adicionadas seguindo o mesmo fluxo descrito anteriormente.
 
-Para formatar o texto resolvi usar o padrão de projeto Strategy, onde foi definido dois padrões possíveis, que são: DefaultAlignment e o JustifyAlignment. O Primeiro ele apenas remove os espaços em branco do texto. O segundo justifica o texto adicionado espaços em branco entre as palavras até que chegue ao limite de caracteres por linha.
+Para formatar o texto resolvi usar o padrão de projeto Strategy, onde foi definido dois padrões possíveis: DefaultAlignment e o JustifyAlignment. O primeiro apenas remove os espaços em branco do texto. Já o segundo justifica o texto adicionado espaços em branco entre as palavras até que chegue ao limite de caracteres por linha.
 
 ## Execução
 
