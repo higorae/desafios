@@ -1,5 +1,3 @@
-
-
 # Desafio 2: Crawlers
 
 ##### Processo de resolução do desafio parte 01
